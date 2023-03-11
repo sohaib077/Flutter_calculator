@@ -30,9 +30,9 @@ class BmiScreen  extends StatelessWidget {
             // backgroundColor: calculatorColor,
             elevation: 0,
             titleSpacing: 20,
-            title: Text(
-              'BMI',
-            ),
+            // title: Text(
+            //   'BMI',
+            // ),
           ),
           body: (
               Column(
