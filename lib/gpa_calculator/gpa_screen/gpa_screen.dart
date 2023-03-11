@@ -13,46 +13,45 @@ import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import '../gpa_result_screen/gpa_result_screen.dart';
 
 class GpaScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
-    var screenHeight = MediaQuery.of(context).size.height ;
-    var screenWidht = MediaQuery.of(context).size.width ;
+    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidht = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'GPA',
-          style: TextStyle(
-            color: Colors.white.withOpacity(0.88),
-          ),
-        ),
+        // title: Text(
+        //   'GPA',
+        //   style: TextStyle(
+        //     color: Colors.white.withOpacity(0.88),
+        //   ),
+        // ),
         actions: [
           IconButton(
-              onPressed: (){
-                navigateTo(context, SettingScreen() , x: 0.0 , y: -1.0);
-              },
-              icon: Icon(
-                IconBroken.Setting,
-                size: 26,
-                color: Colors.white.withOpacity(0.88),
-              ),
+            onPressed: () {
+              navigateTo(context, SettingScreen(), x: 0.0, y: -1.0);
+            },
+            icon: Icon(
+              IconBroken.Setting,
+              size: 26,
+              color: Colors.white.withOpacity(0.88),
+            ),
           ),
-          SizedBox(width: 10,)
+          SizedBox(
+            width: 10,
+          )
         ],
       ),
-      body:BlocConsumer<GpaCubit ,GpaStates>(
-        listener: (context , state){},
-        builder: (context , state){
-
+      body: BlocConsumer<GpaCubit, GpaStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
           var cubit = GpaCubit.get(context);
 
           return Padding(
             padding: const EdgeInsetsDirectional.only(
-               top: 10.0 ,
-              start: 10 ,
-              end: 10 ,
+              top: 10.0,
+              start: 10,
+              end: 10,
             ),
             child: Column(
               children: [
@@ -64,8 +63,8 @@ class GpaScreen extends StatelessWidget {
                       Container(
                         // height: 40,
                         // width: 100,
-                        height: screenHeight*0.06,
-                        width: screenWidht*0.25,
+                        height: screenHeight * 0.06,
+                        width: screenWidht * 0.25,
                         decoration: BoxDecoration(
                           // color: defaultColor ,
                           border: Border.all(
@@ -80,19 +79,19 @@ class GpaScreen extends StatelessWidget {
                             style: TextStyle(
                               color: Colors.white.withOpacity(0.88),
                               // fontSize: 22,
-                              fontSize: screenWidht*0.055,
+                              fontSize: screenWidht * 0.055,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15 ),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Container(
                           // height: 40,
                           // width: 100,
-                          height: screenHeight*0.06,
-                          width: screenWidht*0.25,
+                          height: screenHeight * 0.06,
+                          width: screenWidht * 0.25,
                           decoration: BoxDecoration(
                             // color: Colors.cyan ,
                             border: Border.all(
@@ -107,7 +106,7 @@ class GpaScreen extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.88),
                                 // fontSize: 22,
-                                fontSize: screenWidht*0.055,
+                                fontSize: screenWidht * 0.055,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -117,8 +116,8 @@ class GpaScreen extends StatelessWidget {
                       Container(
                         // height: 40,
                         // width: 100,
-                        height: screenHeight*0.06,
-                        width: screenWidht*0.25,
+                        height: screenHeight * 0.06,
+                        width: screenWidht * 0.25,
                         decoration: BoxDecoration(
                           // color: Colors.cyan ,
                           border: Border.all(
@@ -133,27 +132,31 @@ class GpaScreen extends StatelessWidget {
                             style: TextStyle(
                               color: Colors.white.withOpacity(0.88),
                               // fontSize: 22,
-                              fontSize: screenWidht*0.055,
+                              fontSize: screenWidht * 0.055,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Expanded(
                   flex: 3,
                   child: ListView.separated(
                     physics: BouncingScrollPhysics(),
-                    itemBuilder: (context , index) =>buildGpaItem(context , index) ,
-                    separatorBuilder: (context , index) => myDivider() ,
+                    itemBuilder: (context, index) =>
+                        buildGpaItem(context, index),
+                    separatorBuilder: (context, index) => myDivider(),
                     itemCount: cubit.coursesNumber,
                   ),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 // SizedBox(height: 20,),
                 Expanded(
                   child: Column(
@@ -166,24 +169,27 @@ class GpaScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 IconButton(
-                                  onPressed: (){
-                                    cubit.changeCoursesNumber('add' , cubit.coursesNumber-1) ;
+                                  onPressed: () {
+                                    cubit.changeCoursesNumber(
+                                        'add', cubit.coursesNumber - 1);
                                   },
                                   highlightColor: Colors.transparent,
                                   icon: Icon(
                                     IconBroken.Plus,
                                     color: Colors.cyan,
                                     // size: 28,
-                                    size: screenHeight*0.05,
-                                  ) ,
+                                    size: screenHeight * 0.05,
+                                  ),
                                 ),
-                                SizedBox(width: 10,),
+                                SizedBox(
+                                  width: 10,
+                                ),
                                 Text(
                                   'Add ',
                                   style: TextStyle(
                                     height: 2,
                                     color: Colors.white.withOpacity(0.88),
-                                    fontSize: screenHeight*0.025,
+                                    fontSize: screenHeight * 0.025,
                                   ),
                                 ),
                               ],
@@ -192,25 +198,28 @@ class GpaScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 IconButton(
-                                  onPressed: (){
-                                    cubit.changeCoursesNumber('delete' , cubit.coursesNumber-1) ;
+                                  onPressed: () {
+                                    cubit.changeCoursesNumber(
+                                        'delete', cubit.coursesNumber - 1);
                                   },
                                   highlightColor: Colors.transparent,
                                   icon: Icon(
                                     IconBroken.Delete,
                                     color: Colors.cyan,
                                     // size: 28,
-                                    size: screenHeight*0.05,
-                                  ) ,
+                                    size: screenHeight * 0.05,
+                                  ),
                                 ),
-                                SizedBox(width: 10,),
+                                SizedBox(
+                                  width: 10,
+                                ),
                                 Center(
                                   child: Text(
                                     'Delete',
                                     style: TextStyle(
                                       height: 2,
                                       color: Colors.white.withOpacity(0.88),
-                                      fontSize: screenHeight*0.025,
+                                      fontSize: screenHeight * 0.025,
                                     ),
                                   ),
                                 ),
@@ -219,17 +228,14 @@ class GpaScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-
                     ],
                   ),
                 ),
                 // SizedBox(height: 100,),
                 InkWell(
-                  onTap: (){
-
+                  onTap: () {
                     cubit.fillResult().then((value) {
-                      if(value)
-                        navigateTo(context, GpaResultScreen()) ;
+                      if (value) navigateTo(context, GpaResultScreen());
                       cubit.result();
                     });
                     // cubit.fillResult(context);
@@ -255,134 +261,130 @@ class GpaScreen extends StatelessWidget {
                         topEnd: Radius.circular(20),
                       ),
                     ),
-                    child: state is ! GpaResultLoadingState ?
-                    Text(
-                        'CALCULATE',
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.88),
-                          // fontSize: 20,
-                          fontSize: screenHeight*0.03,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ) :
-                        CircularProgressIndicator() ,
-                    ),
+                    child: state is! GpaResultLoadingState
+                        ? Text(
+                            'CALCULATE',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.88),
+                              // fontSize: 20,
+                              fontSize: screenHeight * 0.03,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : CircularProgressIndicator(),
                   ),
+                ),
               ],
             ),
-          ) ;
+          );
         },
-      ) ,
+      ),
     );
   }
 
-  Widget buildGpaItem(context , index) => Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [
-      Flexible(
-        fit: FlexFit.tight,
-        child: Container(
-          width: 100,
-          height: 50,
-          child: Center(
-            child: Text(
-              'Course ${index+1} :',
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.88),
-                // fontSize: 18,
-                fontSize: MediaQuery.of(context).size.height*0.025,
+  Widget buildGpaItem(context, index) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Flexible(
+            fit: FlexFit.tight,
+            child: Container(
+              width: 100,
+              height: 50,
+              child: Center(
+                child: Text(
+                  'Course ${index + 1} :',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.88),
+                    // fontSize: 18,
+                    fontSize: MediaQuery.of(context).size.height * 0.025,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
+          Flexible(
+            fit: FlexFit.tight,
+            child: Container(
+              width: 100,
+              height: 50,
+              child: GestureDetector(
+                onTap: () {
+                  showMaterialScrollPicker(
+                    context: context,
+                    items: GpaCubit.get(context).grades,
+                    selectedItem: GpaCubit.get(context).gradeValues[index],
+                    title: 'Pick your grade',
+                    headerTextColor: Colors.white.withOpacity(0.88),
+                    backgroundColor: calculatorColor,
+                    // backgroundColor:  Colors.teal,
+                    headerColor: Colors.cyan.withOpacity(0.7),
+                    buttonTextColor: Colors.white.withOpacity(0.88),
+                    showDivider: false,
 
-      Flexible(
-        fit: FlexFit.tight,
-        child: Container(
-          width: 100,
-          height: 50,
-          child: GestureDetector(
-
-            onTap: (){
-              showMaterialScrollPicker(
-                  context: context,
-                  items: GpaCubit.get(context).grades,
-                  selectedItem: GpaCubit.get(context).gradeValues[index],
-                  title: 'Pick your grade' ,
-                  headerTextColor: Colors.white.withOpacity(0.88),
-                  backgroundColor:  calculatorColor  ,
-                  // backgroundColor:  Colors.teal,
-                  headerColor: Colors.cyan.withOpacity(0.7),
-                  buttonTextColor: Colors.white.withOpacity(0.88),
-                  showDivider: false,
-
-                  onChanged: (value){
-                   GpaCubit.get(context).changeGradeValue(value, index) ;
-                  },
-              );
-            },
-            child:
-            GpaCubit.get(context).gradeValues[index] == 'null' ?
-            Center(
-              child: Text(
-                'Grade' ,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.grey,
-                  // fontSize: 20,
-                fontSize: MediaQuery.of(context).size.height*0.025,
-                ),
+                    onChanged: (value) {
+                      GpaCubit.get(context).changeGradeValue(value, index);
+                    },
+                  );
+                },
+                child: GpaCubit.get(context).gradeValues[index] == 'null'
+                    ? Center(
+                        child: Text(
+                          'Grade',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            // fontSize: 20,
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.025,
+                          ),
+                        ),
+                      )
+                    : Center(
+                        child: Text(
+                          GpaCubit.get(context).gradeValues[index],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.cyan,
+                            // fontSize: 22,
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.033,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
               ),
-            ) :
-            Center(
-              child: Text(
-                GpaCubit.get(context).gradeValues[index] ,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.cyan,
-                  // fontSize: 22,
-                  fontSize: MediaQuery.of(context).size.height*0.033,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ) ,
-          ),
-        ),
-      ),
-      Flexible(
-        fit: FlexFit.tight,
-        child: Container(
-          width: 100,
-          height: 50,
-          child: Center(
-            child: TextFormField(
-              keyboardType: TextInputType.number,
-              controller: GpaCubit.get(context).controller[index] ,
-              style: TextStyle(
-                color: Colors.cyan,
-                // fontSize: 22,
-                fontSize: MediaQuery.of(context).size.height*0.033,
-                // fontWeight: FontWeight.w500,
-              ),
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Credit' ,
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                hintStyle: TextStyle(
-                    color: Colors.grey,
-                    // fontSize: 20,
-                fontSize: MediaQuery.of(context).size.height*0.025,
-                ),
-              ),
-
             ),
           ),
-        ),
-      ),
-
-
-    ],
-  ) ;
+          Flexible(
+            fit: FlexFit.tight,
+            child: Container(
+              width: 100,
+              height: 50,
+              child: Center(
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: GpaCubit.get(context).controller[index],
+                  style: TextStyle(
+                    color: Colors.cyan,
+                    // fontSize: 22,
+                    fontSize: MediaQuery.of(context).size.height * 0.033,
+                    // fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Credit',
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
+                      // fontSize: 20,
+                      fontSize: MediaQuery.of(context).size.height * 0.025,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
 }

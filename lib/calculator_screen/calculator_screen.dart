@@ -13,20 +13,19 @@ class CalculatorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CalculatorCubit , CalculatorStates>(
-      listener: (context , state) {},
+    return BlocConsumer<CalculatorCubit, CalculatorStates>(
+      listener: (context, state) {},
       builder: (context, state) {
-
-        var cubit = CalculatorCubit.get(context) ;
+        var cubit = CalculatorCubit.get(context);
 
         return Scaffold(
           appBar: AppBar(
             backgroundColor: calculatorColor,
             elevation: 0,
             titleSpacing: 20,
-            title: Text(
-              'Calculator',
-            ),
+            // title: Text(
+            //   'Calculator',
+            // ),
           ),
           body: Container(
             height: MediaQuery.of(context).size.height,
@@ -34,64 +33,70 @@ class CalculatorScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  color: calculatorColor ,
-                  height: MediaQuery.of(context).size.height*0.17,
+                  color: calculatorColor,
+                  height: MediaQuery.of(context).size.height * 0.15,
                   width: double.infinity,
                   child: Container(
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.only(
-                          bottom: 40,
-                          end: 40
-                      ),
+                      padding:
+                          const EdgeInsetsDirectional.only(bottom: 40, end: 40),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          if(cubit.isAnswered == true )
+                          if (cubit.isAnswered == true)
                             Align(
-                            alignment: AlignmentDirectional.bottomEnd,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              physics: BouncingScrollPhysics(),
-                              child: Container(
-                                child: Text(
-                                  cubit.num1 + cubit.num2 ,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: defaultColor,
-                                    fontWeight: FontWeight.bold,
-                                    // fontSize: 20,
-                                    fontSize: MediaQuery.of(context).size.height*0.024,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          if( cubit.operator != '' )
-                            Align(
-                            alignment: AlignmentDirectional.bottomStart,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              physics: BouncingScrollPhysics(),
-                              child: Container(
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                              alignment: AlignmentDirectional.bottomEnd,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                physics: BouncingScrollPhysics(),
+                                child: Container(
                                   child: Text(
-                                    cubit.num1 + " " + cubit.operator ,
+                                    cubit.num1 + cubit.num2,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       color: defaultColor,
                                       fontWeight: FontWeight.bold,
                                       // fontSize: 20,
-                                      fontSize: MediaQuery.of(context).size.height*0.024,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.024,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
+                          if (cubit.operator != '')
+                            Align(
+                              alignment: AlignmentDirectional.bottomStart,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                physics: BouncingScrollPhysics(),
+                                child: Container(
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
+                                    child: Text(
+                                      cubit.num1 + " " + cubit.operator,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: defaultColor,
+                                        fontWeight: FontWeight.bold,
+                                        // fontSize: 20,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height *
+                                                0.024,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          SizedBox(
+                            height: 2.5,
                           ),
-                          SizedBox(height: 2.5,),
                           Align(
                             alignment: AlignmentDirectional.bottomEnd,
                             child: SingleChildScrollView(
@@ -108,7 +113,9 @@ class CalculatorScreen extends StatelessWidget {
                                       color: Colors.white.withOpacity(0.88),
                                       fontWeight: FontWeight.w600,
                                       // fontSize: 35,
-                                      fontSize: MediaQuery.of(context).size.height*0.045,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.045,
                                     ),
                                   ),
                                 ),
@@ -118,10 +125,10 @@ class CalculatorScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    height: MediaQuery.of(context).size.height*0.2,
+                    height: MediaQuery.of(context).size.height * 0.2,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: calculatorColor ,
+                      color: calculatorColor,
                       // color: Colors.grey ,
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(15),
@@ -130,198 +137,148 @@ class CalculatorScreen extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black,
-                          offset: Offset(0 , 5) ,
+                          offset: Offset(0, 5),
                           blurRadius: 7,
                         ),
                       ],
                     ),
                   ),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5.0 ),
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                calculatorBuildItem(
-                                  context,
+                                calculatorBuildItem(context,
                                     text: 'AC',
-                                    textColor: Colors.grey,
-                                  function: (){
-                                      cubit.clear();
-                                  }
-                                ),
-                                calculatorBuildItem(
-                                  context,
+                                    textColor: Colors.grey, function: () {
+                                  cubit.clear();
+                                }),
+                                calculatorBuildItem(context,
                                     text: 'del',
-                                  textColor: Colors.grey,
-                                  function: (){
-                                    cubit.delete();
-                                  }
-                                ),
-                                calculatorBuildItem(
-                                  context,
+                                    textColor: Colors.grey, function: () {
+                                  cubit.delete();
+                                }),
+                                calculatorBuildItem(context,
                                     text: '%',
-                                    textColor: Colors.grey,
-                                  function: (){
-                                      cubit.operations('%');
-                                  }
-                                ),
-                                calculatorBuildItem(
-                                  context,
+                                    textColor: Colors.grey, function: () {
+                                  cubit.operations('%');
+                                }),
+                                calculatorBuildItem(context,
                                     text: '÷',
-                                    textColor: Colors.grey,
-                                    function: (){
-                                      cubit.operations('÷') ;
-                                    }
-                                ),
+                                    textColor: Colors.grey, function: () {
+                                  cubit.operations('÷');
+                                }),
                               ],
                             ),
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                calculatorBuildItem(
-                                  context,
-                                    text: '7',
-                                  function: (){
-                                    cubit.typeNumbers('7');
-                                  }
-                                ),
-                                calculatorBuildItem(
-                                  context,
-                                    text: '8',
-                                    function: (){
-                                      cubit.typeNumbers('8');
-                                    }
-                                ),
-                                calculatorBuildItem(
-                                  context,
-                                    text: '9',
-                                    function: (){
-                                      cubit.typeNumbers('9');
-                                    }
-                                ),
-                                calculatorBuildItem(
-                                  context,
-                                    text: '×',
-                                    function: (){
-                                      cubit.operations('×') ;
-                                    }
-                                ),
+                                calculatorBuildItem(context, text: '7',
+                                    function: () {
+                                  cubit.typeNumbers('7');
+                                }),
+                                calculatorBuildItem(context, text: '8',
+                                    function: () {
+                                  cubit.typeNumbers('8');
+                                }),
+                                calculatorBuildItem(context, text: '9',
+                                    function: () {
+                                  cubit.typeNumbers('9');
+                                }),
+                                calculatorBuildItem(context, text: '×',
+                                    function: () {
+                                  cubit.operations('×');
+                                }),
                               ],
                             ),
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                calculatorBuildItem(
-                                  context,
-                                    text: '4',
-                                    function: (){
-                                      cubit.typeNumbers('4');
-                                    }
-                                ),
-                                calculatorBuildItem(
-                                  context,
-                                    text: '5',
-                                    function: (){
-                                      cubit.typeNumbers('5');
-                                    }
-                                ),
-                                calculatorBuildItem(
-                                  context,
-                                    text: '6',
-                                    function: (){
-                                      cubit.typeNumbers('6');
-                                    }
-                                ),
-                                calculatorBuildItem(
-                                  context,
-                                    text: '-',
-                                    function: (){
-                                      cubit.operations('-') ;
-                                    }
-                                ),
+                                calculatorBuildItem(context, text: '4',
+                                    function: () {
+                                  cubit.typeNumbers('4');
+                                }),
+                                calculatorBuildItem(context, text: '5',
+                                    function: () {
+                                  cubit.typeNumbers('5');
+                                }),
+                                calculatorBuildItem(context, text: '6',
+                                    function: () {
+                                  cubit.typeNumbers('6');
+                                }),
+                                calculatorBuildItem(context, text: '-',
+                                    function: () {
+                                  cubit.operations('-');
+                                }),
                               ],
                             ),
-                            SizedBox(height: 20,),
-
+                            SizedBox(
+                              height: 20,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                calculatorBuildItem(
-                                  context,
-                                    text: '1',
-                                    function: (){
-                                      cubit.typeNumbers('1');
-                                    }
-                                ),
-                                calculatorBuildItem(
-                                  context,
-                                    text: '2',
-                                    function: (){
-                                      cubit.typeNumbers('2');
-                                    }
-                                ),
-                                calculatorBuildItem(
-                                  context,
-                                    text: '3',
-                                    function: (){
-                                      cubit.typeNumbers('3');
-                                    }
-                                ),
-                                calculatorBuildItem(
-                                  context,
-                                    text: '+',
-                                  function: (){
-                                    cubit.operations('+') ;
-                                  }
-
-                                ),
+                                calculatorBuildItem(context, text: '1',
+                                    function: () {
+                                  cubit.typeNumbers('1');
+                                }),
+                                calculatorBuildItem(context, text: '2',
+                                    function: () {
+                                  cubit.typeNumbers('2');
+                                }),
+                                calculatorBuildItem(context, text: '3',
+                                    function: () {
+                                  cubit.typeNumbers('3');
+                                }),
+                                calculatorBuildItem(context, text: '+',
+                                    function: () {
+                                  cubit.operations('+');
+                                }),
                               ],
                             ),
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                calculatorBuildItem(
-                                  context,
+                                calculatorBuildItem(context,
                                     text: '+/-',
-                                    textColor: Colors.grey,
-                                    function: (){
-                                      cubit.changeSign();
-                                    }
-                                ),
-                                calculatorBuildItem(
-                                  context,
-                                    text: '0',
-                                  function: (){
-                                    cubit.typeNumbers('0');
-                                  }
-                                ),
-                                calculatorBuildItem(
-                                  context,
-                                    text: '.',
-                                  function: (){
-                                      cubit.typeNumbers('.');
-                                    }
-                                ),
-                                calculatorBuildItem(
-                                  context,
+                                    textColor: Colors.grey, function: () {
+                                  cubit.changeSign();
+                                }),
+                                calculatorBuildItem(context, text: '0',
+                                    function: () {
+                                  cubit.typeNumbers('0');
+                                }),
+                                calculatorBuildItem(context, text: '.',
+                                    function: () {
+                                  cubit.typeNumbers('.');
+                                }),
+                                calculatorBuildItem(context,
                                     text: '=',
-                                  color: defaultColor.withOpacity(0.85),
-                                  function: (){
+                                    color: defaultColor.withOpacity(0.85),
+                                    function: () {
+                                  if (cubit.checker)
                                     cubit.answer();
-                                  }
-                                ),
+                                }),
                               ],
                             ),
                           ],
@@ -329,77 +286,76 @@ class CalculatorScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ) ,
-                SizedBox(height: 20,),
-
+                ),
+                SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           ),
-        ) ;
+        );
       },
     );
   }
-
 }
 
-Widget  calculatorBuildItem (
-    context,
-    {
-  String text = '1' ,
-  Color textColor =Colors.white ,
-  Color color = calculatorColor ,
-  Function ? function ,
-}) => InkWell(
-  onTap: () => function!(),
-  borderRadius:BorderRadius.all(Radius.circular(10)) ,
-  // highlightColor: Colors.white,
-  child: Container(
-    // height: 65,
-    // width: 65,
-    height: MediaQuery.of(context).size.height*0.095,
-    width: MediaQuery.of(context).size.height*0.095,
-    // decoration: BoxDecoration(
-    //   color: color.withOpacity(0.85),
-    //   borderRadius: BorderRadius.all(Radius.circular(10)),
-    //   boxShadow: [
-    //     BoxShadow(
-    //         color: Colors.grey.withOpacity(0.3),
-    //         offset: Offset(-1,-1),
-    //         blurRadius: 3
-    //     ),
-    //     BoxShadow(
-    //       color: Colors.black,
-    //       offset: Offset(3,3),
-    //       blurRadius: 3,
-    //     ),
-    //   ],
-    // ),
-    decoration: BoxDecoration(
-      color: color,
-      borderRadius: BorderRadius.circular(10),
-      boxShadow: [
-        BoxShadow(
-          color: Color(0xff93DEFF).withOpacity(0.4),
-          offset: Offset(-1, 2),
-          blurRadius: 2,
+Widget calculatorBuildItem(
+  context, {
+  String text = '1',
+  Color textColor = Colors.white,
+  Color color = calculatorColor,
+  Function? function,
+}) =>
+    InkWell(
+      onTap: () => function!(),
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      // highlightColor: Colors.white,
+      child: Container(
+        // height: 65,
+        // width: 65,
+        height: MediaQuery.of(context).size.height * 0.094,
+        width: MediaQuery.of(context).size.height * 0.094,
+        // decoration: BoxDecoration(
+        //   color: color.withOpacity(0.85),
+        //   borderRadius: BorderRadius.all(Radius.circular(10)),
+        //   boxShadow: [
+        //     BoxShadow(
+        //         color: Colors.grey.withOpacity(0.3),
+        //         offset: Offset(-1,-1),
+        //         blurRadius: 3
+        //     ),
+        //     BoxShadow(
+        //       color: Colors.black,
+        //       offset: Offset(3,3),
+        //       blurRadius: 3,
+        //     ),
+        //   ],
+        // ),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xff93DEFF).withOpacity(0.4),
+              offset: Offset(-1, 2),
+              blurRadius: 2,
+            ),
+            BoxShadow(
+              color: Colors.black.withOpacity(0.9),
+              offset: Offset(1, -1),
+              blurRadius: 1,
+            ),
+          ],
         ),
-        BoxShadow(
-          color: Colors.black.withOpacity(0.9),
-          offset: Offset(1, -1),
-          blurRadius: 1,
-        ),
-      ],
-    ),
-    child: Center(
-      child: Text(
-        text,
-        style: TextStyle(
-          color: textColor.withOpacity(0.85),
-          fontSize: 30,
-          fontWeight: FontWeight.normal,
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: textColor.withOpacity(0.85),
+              fontSize: 30,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
         ),
       ),
-    ),
-  ),
-) ;
-
+    );

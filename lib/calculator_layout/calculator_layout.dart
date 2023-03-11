@@ -9,18 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CalculatorLayout extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CalculatorCubit ,CalculatorStates>(
-      listener: (context , state){},
-      builder: (context , state){
-
+    return BlocConsumer<CalculatorCubit, CalculatorStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
         var cubit = CalculatorCubit.get(context);
 
-        return BlocConsumer<GpaCubit , GpaStates>(
-          listener: (context , state){},
-          builder: (context , state){
+        return BlocConsumer<GpaCubit, GpaStates>(
+          listener: (context, state) {},
+          builder: (context, state) {
             return Scaffold(
               bottomNavigationBar: Theme(
                 data: Theme.of(context).copyWith(
@@ -37,25 +35,39 @@ class CalculatorLayout extends StatelessWidget {
                       'assets/images/bmi icon2.png',
                       scale: 20,
                       color: Colors.white.withOpacity(0.9),
-                    ) ,
-                    Icon(Icons.calculate_outlined , size: 25, color: Colors.white.withOpacity(0.9),) ,
-                    Icon(Icons.school_outlined , size: 25,color: Colors.white.withOpacity(0.9),) ,
+                    ),
+                    Icon(
+                      Icons.calculate_outlined,
+                      size: 25,
+                      color: Colors.white.withOpacity(0.9),
+                    ),
+                    Icon(
+                      Icons.school_outlined,
+                      size: 25,
+                      color: Colors.white.withOpacity(0.9),
+                    ),
                   ],
-                  onTap: (index){
-                    cubit.changeBottomNav(index) ;
+                  onTap: (index) {
+                    cubit.changeBottomNav(index);
                   },
                   color: calculatorColor.withOpacity(1),
                   backgroundColor: calculatorColor.withOpacity(0.4),
                   buttonBackgroundColor: defaultColor,
                   animationDuration: Duration(milliseconds: 300),
-
-                  height: 42,
+                  height: MediaQuery.of(context).size.height * 0.075,
                 ),
               ),
-              body: cubit.screens[cubit.currentIndex],
+              body: GestureDetector(
+                  onTap: () {
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
+                  },
+                  child: cubit.screens[cubit.currentIndex]),
             );
           },
-        ) ;
+        );
       },
     );
   }
