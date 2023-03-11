@@ -14,6 +14,39 @@ class GpaCubit extends Cubit <GpaStates>{
 
   static GpaCubit get(context) => BlocProvider.of(context) ;
 
+  List<String> grades =[
+    ' A+','A',' A-',
+    ' B+','B',' B-',
+    ' C+','C',' C-',
+    ' D+','D',' D-',
+    'F',
+  ];
+
+  String selectedItem = '' ;
+  int coursesNumber = 5 ;
+
+  var gradeValues = new List.filled(100, 'null', growable: false) ;
+  List<TextEditingController> controller = [];
+  List<TextEditingController> settingController = [];
+
+  List<String> gradeResults = [] ;
+  List<String> creditResults = [] ;
+
+  bool isCalculated = true ;
+  double totalPoints = 0;
+  double totalCredits = 0;
+  double gpaResult = 0 ;
+
+  // Map <String , dynamic> points = {
+  //   'A+' : 4 , 'A' : 4 , 'A-' : 3.7 ,
+  //   'B+' : 3.3 , 'B' : 3 , 'B-' : 2.7 ,
+  //   'C+' : 2.3 , 'C' : 2 , 'C-' : 1.7 ,
+  //   'D+' : 1.3 , 'D' : 1 , 'D-' : 0.7 ,
+  //   'F' : 0 ,
+  // } ;
+  //
+
+
   void changeCoursesNumber (String status , index){
 
       if (status == 'add'){
@@ -53,8 +86,9 @@ class GpaCubit extends Cubit <GpaStates>{
     emit(GpaSetControllersState());
   }
 
-  void fillResult(context){
-
+  Future <bool> fillResult() async
+  {
+    emit(GpaResultLoadingState());
     gradeResults = [] ;
     creditResults = [] ;
     isCalculated = true ;
@@ -67,10 +101,13 @@ class GpaCubit extends Cubit <GpaStates>{
       else if(gradeValues[i]== 'null' && controller[i].text != ''){
         showToast(text: 'Please pick the missed grade field', state: ToastStates.ERROR);
         isCalculated = false ;
+        return await isCalculated ;
       }
       else if(gradeValues[i] != 'null' && controller[i].text == ''){
         showToast(text: 'Please pick the missed credit field', state: ToastStates.ERROR);
         isCalculated = false ;
+        return await isCalculated ;
+
       }
     }
     if(gradeResults.length == 0){
@@ -79,11 +116,13 @@ class GpaCubit extends Cubit <GpaStates>{
         state: ToastStates.ERROR,
       );
       isCalculated = false ;
+      return await isCalculated ;
     }
-
-    if(isCalculated)
-      navigateTo(context, GpaResultScreen()) ;
-    emit(GpaFillResultState());
+    // emit(GpaFillResultState());
+    return await isCalculated ;
+    // if(isCalculated)
+    //   navigateTo(context, GpaResultScreen()) ;
+    // emit(GpaFillResultState());
   }
 
   void result(){
@@ -91,16 +130,8 @@ class GpaCubit extends Cubit <GpaStates>{
     totalCredits = 0 ;
     totalPoints = 0 ;
 
-    if(gradeResults.length == 0){
-      showToast(
-          text: 'Please fill fields first to get results',
-          state: ToastStates.ERROR,
-      );
-      isCalculated = false ;
-    }
-
     for(int i = 0 ; i < gradeResults.length ; i++){
-
+      print(i) ;
       switch(gradeResults[i]){
 
         case ' A+' :
@@ -162,6 +193,7 @@ class GpaCubit extends Cubit <GpaStates>{
     }
 
     gpaResult = totalPoints / totalCredits ;
+    emit(GpaResultState());
   }
 
   void resetPoints (){
@@ -190,4 +222,17 @@ class GpaCubit extends Cubit <GpaStates>{
     emit(GpaRepeatState());
 
   }
+
+  // FocusNode focusNode = FocusNode();
+  // String hintText = 'Credit';
+  // void hideHintText(){
+  //   focusNode.addListener(() {
+  //     if (focusNode.hasFocus)
+  //       hintText = '';
+  //      else
+  //       hintText = 'Credit';
+  //
+  //    } );
+  //   emit(hideHintTextState());
+  // }
 }

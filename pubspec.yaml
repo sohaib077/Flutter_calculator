@@ -17,9 +17,12 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
 
-environment:
-  sdk: ">=2.17.6 <3.0.0"
+#environment:
+#  sdk: ">=2.17.6 <3.0.0"
 
+environment:
+  sdk: '>=2.19.0 <3.0.0'
+  flutter: '3.7.0'
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
@@ -33,49 +36,61 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  sqflite: ^2.0.0+3
+  cupertino_icons: ^1.0.5
+  sqflite: ^2.2.5
   intl: ^0.17.0
-  date_format: ^2.0.6
+  date_format: ^2.0.7
   conditional_builder_null_safety: ^0.0.6
-  bloc: ^8.0.3
-  flutter_bloc: ^8.0.1
-  dio: ^4.0.6
-  hexcolor: ^2.0.7
-  shared_preferences: ^2.0.15
-  webview_flutter: ^3.0.4
-  smooth_page_indicator: ^1.0.0+2
-  fluttertoast: ^8.0.9
-  carousel_slider: ^4.1.1
-#
-#  firebase_core: ^1.20.1
-#  firebase_auth: ^3.6.3
-#  cloud_firestore: ^3.4.4
-#  firebase_storage: ^10.3.6
-#  firebase_messaging: ^12.0.3
-#  firebase_analytics: ^9.3.2
-#
-  image_picker: ^0.8.5+3
+  bloc: ^8.1.1
+  flutter_bloc: ^8.1.2
+  dio: ^5.0.2
+  hexcolor: ^3.0.1
+  shared_preferences: ^2.0.18
+  webview_flutter: ^4.0.6
+  smooth_page_indicator: ^1.0.1
+  fluttertoast: ^8.2.1
+  carousel_slider: ^4.2.1
+  image_picker: ^0.8.7
 
-  syncfusion_flutter_sliders: ^20.2.45
-  flutter_material_pickers: ^3.1.4+1
-  animated_bottom_navigation_bar: ^1.1.0
+  syncfusion_flutter_sliders: ^20.4.53
+  flutter_material_pickers: ^3.3.0
+  animated_bottom_navigation_bar: ^1.2.0
   curved_navigation_bar: ^1.0.3
 
-
+  swipe_back_detector: ^2.0.0
 
 
 
 dev_dependencies:
+
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.12.0
+
+  flutter_native_splash: ^2.2.19
+
+flutter_native_splash:
+  color: "#0e727a"
+  image: assets/images/calculator.png
+  android: true
+  ios: true
+  splashTransition: SplashTransition.slideTransition
+
+#
+flutter_icons:
+  android: "app_icon"
+  ios: true
+  image_path: "assets/images/app icon3.png"
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.1
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -99,6 +114,7 @@ flutter:
     - family: IconBroken
       fonts:
         - asset: assets/fonts/icons.ttf
+
 
 
   # To add assets to your application, add an assets section, like this:
@@ -131,3 +147,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+

@@ -11,6 +11,16 @@ class BmiCubit extends Cubit<BmiStates> {
 
   static BmiCubit get(context) => BlocProvider.of(context) ;
 
+  bool isMale = true ;
+  int height = 170 ;
+  int weight = 110 ;
+  String result = '' ;
+  String resultStatus = '' ;
+  String losedWeight = '' ;
+  String gainedWeight = '' ;
+  Color resultColor = Colors.green ;
+
+
   void changeGender(String gender){
     if(gender == 'male')
       isMale = true ;
@@ -32,7 +42,8 @@ class BmiCubit extends Cubit<BmiStates> {
 
   }
 
-  void calculateResult(){
+  Future calculateResult()async
+  {
 
     result = ( weight / (height*height*0.0001) ).toString();
 
@@ -52,7 +63,8 @@ class BmiCubit extends Cubit<BmiStates> {
     emit(BmiCalculateResultState());
   }
 
-  void calculateResultStatus(){
+  Future calculateResultStatus() async
+  {
     if (double.parse(result) < 18.5){
       resultStatus = 'Underweight' ;
       resultColor = Colors.yellow ;

@@ -12,6 +12,9 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenHeight = MediaQuery.of(context).size.height ;
+    var screenWidht = MediaQuery.of(context).size.width ;
+
     return BlocConsumer<BmiCubit ,BmiStates>(
       listener: (context, state){},
       builder: (context, state){
@@ -22,8 +25,8 @@ class ResultScreen extends StatelessWidget {
           appBar: AppBar(
             leading: IconButton(
               onPressed: (){
-                losedWeight = '';
-                gainedWeight = '';
+                cubit.losedWeight = '';
+                cubit.gainedWeight = '';
                 Navigator.pop(context);
               },
               icon: Icon(
@@ -56,29 +59,29 @@ class ResultScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 50,),
+                SizedBox(height: 30,),
                 Expanded(
                   child: Column(
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Container(
-                        width: double.infinity,
-                        height: 250,
+                        width: screenWidht,
+                        height: screenHeight*0.4,
                         decoration: BoxDecoration(
-                          color: Colors.white10.withOpacity(0.1),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
+                          color: calculatorColor.withOpacity(1),
+                          borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              offset: Offset(0,2),
-                              color: Colors.white.withOpacity(0.8),
-                              blurRadius: 3,
+                              color: Color(0xff93DEFF).withOpacity(0.5),
+                              offset: Offset(-1, 2),
+                              blurRadius: 2,
                             ),
                             BoxShadow(
-                              offset: Offset(2,0),
-                              color: Colors.black,
-                              blurRadius: 3,
+                              color: Colors.black.withOpacity(0.7),
+                              offset: Offset(1, -1),
+                              blurRadius: 1,
                             ),
+
                           ],
                         ),
                         child: Padding(
@@ -87,9 +90,11 @@ class ResultScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
+                                flex: 1,
                                 child: Text(
                                   'Your BMI is ',
                                   style: TextStyle(
+                                    height: 2,
                                     fontSize:30,
                                     color: Colors.white,
                                   ),
@@ -97,15 +102,17 @@ class ResultScreen extends StatelessWidget {
                               ),
                               Expanded(
                                 child: Text(
-                                  '${result}',
+                                  '${cubit.result}',
                                   style: TextStyle(
-                                    fontSize:40,
-                                    color: resultColor,
+                                    // fontSize:40,
+                                    fontSize:screenWidht*0.13,
+                                    color: cubit.resultColor,
                                     fontWeight: FontWeight.bold
                                   ),
                                 ),
                               ),
                               Expanded(
+                                flex: 0,
                                 child: Text(
                                   'kg/m²',
                                   style: TextStyle(
@@ -122,22 +129,28 @@ class ResultScreen extends StatelessWidget {
                                     Text(
                                       'Your weight is ',
                                       style: TextStyle(
-                                        fontSize:20,
+                                        // fontSize:20,
+                                        fontSize:screenWidht*0.048,
                                         color: Colors.white,
                                         fontWeight: FontWeight.w300,
                                       ),
                                     ),
-                                    Text(
-                                      '${resultStatus}',
-                                      style: TextStyle(
-                                          fontSize:28,
-                                          color: resultColor,
-                                          fontWeight: FontWeight.bold
+                                    Flexible(
+                                      // fit: FlexFit.loose,
+                                      child: Text(
+                                        '${cubit.resultStatus}',
+                                        style: TextStyle(
+                                            // fontSize:30,
+                                            fontSize:screenWidht*0.08,
+                                            color: cubit.resultColor,
+                                            fontWeight: FontWeight.bold
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
+                              // SizedBox(height: 50),
                             ],
                           ),
                         ),
@@ -147,9 +160,9 @@ class ResultScreen extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            resultStatus != 'Normal' ?
+                            cubit.resultStatus != 'Normal' ?
 
-                              losedWeight != '' ?
+                              cubit.losedWeight != '' ?
                                Expanded(
                                  child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -164,18 +177,20 @@ class ResultScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '${losedWeight}',
+                                    '${cubit.losedWeight}',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 28,
                                       color: defaultColor ,
                                     ),
                                   ),
-                                  Text(
-                                    ' kg' ,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
+                                  Flexible(
+                                    child: Text(
+                                      ' kg' ,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
                               ],
@@ -196,7 +211,7 @@ class ResultScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '${gainedWeight}',
+                                    '${cubit.gainedWeight}',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 28,
@@ -253,12 +268,13 @@ class ResultScreen extends StatelessWidget {
                                 },
                                 customBorder: CircleBorder(),
                                 child: CircleAvatar(
-                                  radius: 30,
+                                  // radius: 30,
+                                  radius: screenWidht*0.09,
                                   backgroundColor: defaultColor.withOpacity(0.8),
                                   child: Icon(
                                     Icons.replay,
                                     color: Colors.white,
-                                    size: 40,
+                                    size: screenWidht*0.12,
                                   ),
                                 ),
                               ),

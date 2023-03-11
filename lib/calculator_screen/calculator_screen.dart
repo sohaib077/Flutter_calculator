@@ -46,7 +46,7 @@ class CalculatorScreen extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          if(isAnswered == true)
+                          if(cubit.isAnswered == true )
                             Align(
                             alignment: AlignmentDirectional.bottomEnd,
                             child: SingleChildScrollView(
@@ -54,13 +54,38 @@ class CalculatorScreen extends StatelessWidget {
                               physics: BouncingScrollPhysics(),
                               child: Container(
                                 child: Text(
-                                  num1 + num2 ,
+                                  cubit.num1 + cubit.num2 ,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     color: defaultColor,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                    // fontSize: 20,
+                                    fontSize: MediaQuery.of(context).size.height*0.024,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          if( cubit.operator != '' )
+                            Align(
+                            alignment: AlignmentDirectional.bottomStart,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              physics: BouncingScrollPhysics(),
+                              child: Container(
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                                  child: Text(
+                                    cubit.num1 + " " + cubit.operator ,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: defaultColor,
+                                      fontWeight: FontWeight.bold,
+                                      // fontSize: 20,
+                                      fontSize: MediaQuery.of(context).size.height*0.024,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -76,13 +101,14 @@ class CalculatorScreen extends StatelessWidget {
                                 child: Align(
                                   alignment: AlignmentDirectional.bottomEnd,
                                   child: Text(
-                                    output,
+                                    cubit.output,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.white.withOpacity(0.88),
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 35,
+                                      // fontSize: 35,
+                                      fontSize: MediaQuery.of(context).size.height*0.045,
                                     ),
                                   ),
                                 ),
@@ -111,12 +137,13 @@ class CalculatorScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 15,),
+                SizedBox(height: 10,),
                 Expanded(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0 ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -124,6 +151,7 @@ class CalculatorScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 calculatorBuildItem(
+                                  context,
                                     text: 'AC',
                                     textColor: Colors.grey,
                                   function: (){
@@ -131,13 +159,15 @@ class CalculatorScreen extends StatelessWidget {
                                   }
                                 ),
                                 calculatorBuildItem(
-                                  text: 'del',
+                                  context,
+                                    text: 'del',
                                   textColor: Colors.grey,
                                   function: (){
                                     cubit.delete();
                                   }
                                 ),
                                 calculatorBuildItem(
+                                  context,
                                     text: '%',
                                     textColor: Colors.grey,
                                   function: (){
@@ -145,6 +175,7 @@ class CalculatorScreen extends StatelessWidget {
                                   }
                                 ),
                                 calculatorBuildItem(
+                                  context,
                                     text: '÷',
                                     textColor: Colors.grey,
                                     function: (){
@@ -158,25 +189,29 @@ class CalculatorScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 calculatorBuildItem(
-                                  text: '7',
+                                  context,
+                                    text: '7',
                                   function: (){
                                     cubit.typeNumbers('7');
                                   }
                                 ),
                                 calculatorBuildItem(
-                                  text: '8',
+                                  context,
+                                    text: '8',
                                     function: (){
                                       cubit.typeNumbers('8');
                                     }
                                 ),
                                 calculatorBuildItem(
-                                  text: '9',
+                                  context,
+                                    text: '9',
                                     function: (){
                                       cubit.typeNumbers('9');
                                     }
                                 ),
                                 calculatorBuildItem(
-                                  text: '×',
+                                  context,
+                                    text: '×',
                                     function: (){
                                       cubit.operations('×') ;
                                     }
@@ -188,25 +223,29 @@ class CalculatorScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 calculatorBuildItem(
-                                  text: '4',
+                                  context,
+                                    text: '4',
                                     function: (){
                                       cubit.typeNumbers('4');
                                     }
                                 ),
                                 calculatorBuildItem(
-                                  text: '5',
+                                  context,
+                                    text: '5',
                                     function: (){
                                       cubit.typeNumbers('5');
                                     }
                                 ),
                                 calculatorBuildItem(
-                                  text: '6',
+                                  context,
+                                    text: '6',
                                     function: (){
                                       cubit.typeNumbers('6');
                                     }
                                 ),
                                 calculatorBuildItem(
-                                  text: '-',
+                                  context,
+                                    text: '-',
                                     function: (){
                                       cubit.operations('-') ;
                                     }
@@ -219,25 +258,29 @@ class CalculatorScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 calculatorBuildItem(
-                                  text: '1',
+                                  context,
+                                    text: '1',
                                     function: (){
                                       cubit.typeNumbers('1');
                                     }
                                 ),
                                 calculatorBuildItem(
-                                  text: '2',
+                                  context,
+                                    text: '2',
                                     function: (){
                                       cubit.typeNumbers('2');
                                     }
                                 ),
                                 calculatorBuildItem(
-                                  text: '3',
+                                  context,
+                                    text: '3',
                                     function: (){
                                       cubit.typeNumbers('3');
                                     }
                                 ),
                                 calculatorBuildItem(
-                                  text: '+',
+                                  context,
+                                    text: '+',
                                   function: (){
                                     cubit.operations('+') ;
                                   }
@@ -250,6 +293,7 @@ class CalculatorScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 calculatorBuildItem(
+                                  context,
                                     text: '+/-',
                                     textColor: Colors.grey,
                                     function: (){
@@ -257,20 +301,23 @@ class CalculatorScreen extends StatelessWidget {
                                     }
                                 ),
                                 calculatorBuildItem(
-                                  text: '0',
+                                  context,
+                                    text: '0',
                                   function: (){
                                     cubit.typeNumbers('0');
                                   }
                                 ),
                                 calculatorBuildItem(
-                                  text: '.',
+                                  context,
+                                    text: '.',
                                   function: (){
                                       cubit.typeNumbers('.');
                                     }
                                 ),
                                 calculatorBuildItem(
-                                  text: '=',
-                                  color: defaultColor,
+                                  context,
+                                    text: '=',
+                                  color: defaultColor.withOpacity(0.85),
                                   function: (){
                                     cubit.answer();
                                   }
@@ -283,6 +330,7 @@ class CalculatorScreen extends StatelessWidget {
                     ],
                   ),
                 ) ,
+                SizedBox(height: 20,),
 
               ],
             ),
@@ -294,7 +342,9 @@ class CalculatorScreen extends StatelessWidget {
 
 }
 
-Widget  calculatorBuildItem ({
+Widget  calculatorBuildItem (
+    context,
+    {
   String text = '1' ,
   Color textColor =Colors.white ,
   Color color = calculatorColor ,
@@ -304,21 +354,39 @@ Widget  calculatorBuildItem ({
   borderRadius:BorderRadius.all(Radius.circular(10)) ,
   // highlightColor: Colors.white,
   child: Container(
-    height: 60,
-    width: 60,
+    // height: 65,
+    // width: 65,
+    height: MediaQuery.of(context).size.height*0.095,
+    width: MediaQuery.of(context).size.height*0.095,
+    // decoration: BoxDecoration(
+    //   color: color.withOpacity(0.85),
+    //   borderRadius: BorderRadius.all(Radius.circular(10)),
+    //   boxShadow: [
+    //     BoxShadow(
+    //         color: Colors.grey.withOpacity(0.3),
+    //         offset: Offset(-1,-1),
+    //         blurRadius: 3
+    //     ),
+    //     BoxShadow(
+    //       color: Colors.black,
+    //       offset: Offset(3,3),
+    //       blurRadius: 3,
+    //     ),
+    //   ],
+    // ),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.85),
-      borderRadius: BorderRadius.all(Radius.circular(10)),
+      color: color,
+      borderRadius: BorderRadius.circular(10),
       boxShadow: [
         BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            offset: Offset(-1,-1),
-            blurRadius: 3
+          color: Color(0xff93DEFF).withOpacity(0.4),
+          offset: Offset(-1, 2),
+          blurRadius: 2,
         ),
         BoxShadow(
-          color: Colors.black,
-          offset: Offset(3,3),
-          blurRadius: 3,
+          color: Colors.black.withOpacity(0.9),
+          offset: Offset(1, -1),
+          blurRadius: 1,
         ),
       ],
     ),
@@ -326,7 +394,7 @@ Widget  calculatorBuildItem ({
       child: Text(
         text,
         style: TextStyle(
-          color: textColor,
+          color: textColor.withOpacity(0.85),
           fontSize: 30,
           fontWeight: FontWeight.normal,
         ),

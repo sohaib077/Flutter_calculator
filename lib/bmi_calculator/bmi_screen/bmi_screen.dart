@@ -14,6 +14,10 @@ class BmiScreen  extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var screenHeight = MediaQuery.of(context).size.height ;
+    var screenWidht = MediaQuery.of(context).size.width ;
+
     return BlocConsumer<BmiCubit , BmiStates>(
       listener: (context , state){},
       builder: (context , state){
@@ -49,14 +53,17 @@ class BmiScreen  extends StatelessWidget {
                                       onTap: (){
                                         cubit.changeGender('male') ;
                                       },
-                                      borderRadius: BorderRadius.circular(75),
+                                      // borderRadius: BorderRadius.circular(75),
+                                      customBorder: CircleBorder(),
                                       child: Image(
-                                        height: 150,
-                                        width: 150,
+                                        // height: 150,
+                                        // width: 150,
+                                        height: screenHeight*0.19,
+                                        width: screenWidht*0.37,
                                         image: AssetImage(
                                           'assets/images/male.png',
                                         ),
-                                        color:  isMale  ?  Colors.white.withOpacity(1) : Colors.white.withOpacity(0.2),
+                                        color:  cubit.isMale  ?  Colors.white.withOpacity(1) : Colors.white.withOpacity(0.2),
                                         colorBlendMode: BlendMode.modulate,
                                       ),
                                     ),
@@ -66,7 +73,7 @@ class BmiScreen  extends StatelessWidget {
                                       style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                        color: Colors.white.withOpacity(0.88),
                                       ),
                                     ),
                                   ],
@@ -79,14 +86,17 @@ class BmiScreen  extends StatelessWidget {
                                       onTap: (){
                                         cubit.changeGender('female') ;
                                       },
-                                      borderRadius: BorderRadius.circular(75),
+                                      // borderRadius: BorderRadius.circular(75),
+                                      customBorder: CircleBorder(),
                                       child: Image(
-                                        height: 150,
-                                        width: 150,
+                                        // height: 150,
+                                        // width: 150,
+                                        height: screenHeight*0.19,
+                                        width: screenWidht*0.37,
                                         image: AssetImage(
                                           'assets/images/female.png',
                                         ),
-                                        color:  !isMale  ?  Colors.white.withOpacity(1) : Colors.white.withOpacity(0.2),
+                                        color:  !cubit.isMale  ?  Colors.white.withOpacity(1) : Colors.white.withOpacity(0.2),
                                         colorBlendMode: BlendMode.modulate,
                                       ),
                                     ),
@@ -96,7 +106,7 @@ class BmiScreen  extends StatelessWidget {
                                       style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                        color: Colors.white.withOpacity(0.88),
                                       ),
                                     ),
                                   ],
@@ -128,7 +138,7 @@ class BmiScreen  extends StatelessWidget {
                                         style: TextStyle(
                                           fontSize: 25,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                                          color: Colors.white.withOpacity(0.88),
                                         ),
                                       ),
                                     ),
@@ -137,9 +147,10 @@ class BmiScreen  extends StatelessWidget {
                                       textBaseline: TextBaseline.alphabetic ,
                                       children: [
                                         Text(
-                                          '${height}',
+                                          '${cubit.height}',
                                           style: TextStyle(
-                                            fontSize: 35,
+                                            // fontSize: 35,
+                                            fontSize: screenWidht*0.09,
                                             fontWeight: FontWeight.w800,
                                             color: defaultColor,
                                           ),
@@ -148,25 +159,25 @@ class BmiScreen  extends StatelessWidget {
                                         Text(
                                           'cm',
                                           style: TextStyle(
-                                            color: Colors.white,
+                                            color: Colors.white.withOpacity(0.88),
                                           ),
                                         ),
                                       ],
                                     ),
                                   ],
                                 ),
-                                // SizedBox(height: 5,),
-                                SfSlider(
+                                // SizedBox(.height: 5,),
+                                Slider(
                                   min: 70,
                                   max: 270,
-                                  value: height,
+                                  value: cubit.height.toDouble(),
                                   // interval: 40,
-                                  showTicks: true,
+                                  // showTicks: true,
                                   // showLabels: true,
                                   inactiveColor: Colors.white12.withOpacity(0.1),
-                                  stepSize: 1,
+                                  // stepSize: 1,
                                   // enableTooltip: true,
-                                  minorTicksPerInterval: 1,
+                                  // minorTicksPerInterval: 1,
                                   activeColor: defaultColor,
                                   onChanged: (dynamic value){
                                     cubit.changeHeight(value.round()) ;
@@ -189,11 +200,11 @@ class BmiScreen  extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsetsDirectional.only(start: 0.0),
                                       child: Text(
-                                        'WEIGHT',
+                                        'WEIGHT :',
                                         style: TextStyle(
                                           fontSize: 25,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                                          color: Colors.white.withOpacity(0.88),
                                         ),
                                       ),
                                     ),
@@ -202,9 +213,10 @@ class BmiScreen  extends StatelessWidget {
                                       textBaseline: TextBaseline.alphabetic ,
                                       children: [
                                         Text(
-                                          '${weight}',
+                                          '${cubit.weight}',
                                           style: TextStyle(
-                                            fontSize: 35,
+                                            // fontSize: 35,
+                                            fontSize: screenWidht*0.09,
                                             fontWeight: FontWeight.w800,
                                             color: defaultColor,
                                           ),
@@ -213,7 +225,7 @@ class BmiScreen  extends StatelessWidget {
                                         Text(
                                           'kg',
                                           style: TextStyle(
-                                            color: Colors.white,
+                                            color: Colors.white.withOpacity(0.88),
                                           ),
                                         ),
                                       ],
@@ -221,22 +233,37 @@ class BmiScreen  extends StatelessWidget {
                                   ],
                                 ),
                                 // SizedBox(height: 5,),
-                                SfSlider(
+                                // SfSlider(
+                                //   min: 40,
+                                //   max: 180,
+                                //   value: cubit.weight,
+                                //   // interval: 40,
+                                //   // showTicks: true,
+                                //   // showLabels: true,
+                                //   // enableTooltip: true,
+                                //   minorTicksPerInterval: 1,
+                                //   activeColor: defaultColor,
+                                //   inactiveColor: Colors.white12.withOpacity(0.1),
+                                //   stepSize: 1,
+                                //   onChanged: (dynamic value){
+                                //     cubit.changeWeight(value.round()) ;
+                                //   },
+                                // ),
+                                Slider(
                                   min: 40,
                                   max: 180,
-                                  value: weight,
+                                  value: cubit.weight.toDouble(),
                                   // interval: 40,
                                   // showTicks: true,
                                   // showLabels: true,
                                   // enableTooltip: true,
-                                  minorTicksPerInterval: 1,
                                   activeColor: defaultColor,
                                   inactiveColor: Colors.white12.withOpacity(0.1),
-                                  stepSize: 1,
                                   onChanged: (dynamic value){
                                     cubit.changeWeight(value.round()) ;
                                   },
                                 ),
+
                               ],
                             ),
                           ),
@@ -249,7 +276,13 @@ class BmiScreen  extends StatelessWidget {
                     onTap: (){
                       cubit.calculateResult();
                       cubit.calculateResultStatus();
+                      // navigateTo(context , ResultScreen());
                       navigateTo(context , ResultScreen());
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(builder: (context) => ResultScreen()
+                      //     ),
+                      //   );
                     },
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20),
@@ -272,8 +305,9 @@ class BmiScreen  extends StatelessWidget {
                       child: Text(
                         'CALCULATE',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
+                          color: Colors.white.withOpacity(0.88),
+                          // fontSize: 20,
+                          fontSize: screenHeight*0.03,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

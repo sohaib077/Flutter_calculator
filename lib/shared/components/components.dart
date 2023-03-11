@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:swipe_back_detector/swipe_back_detector.dart';
 
 import '../styles/colors.dart';
 import '../styles/icon_broken.dart';
@@ -118,6 +119,7 @@ Widget defaultTextButton({
 
 
 
+/*
 
 Widget CalculatorButton({
 
@@ -144,6 +146,7 @@ Widget CalculatorButton({
   ),
 );
 
+*/
 
 Widget myDivider({
   Color color = Colors.grey,
@@ -161,21 +164,55 @@ Widget myDivider({
 );
 
 
-void navigateTo(context, widget) => Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context) => widget,
+// void navigateTo(context, widget) => Navigator.push(
+//   context,
+//   MaterialPageRoute(
+//     builder: (context) => widget,
+//     ),
+//   );
+
+void navigateTo(BuildContext context, Widget page , {double x = 1.0 , double y = 0.0}) {
+  Navigator.push(
+    context,
+    PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final begin = Offset(x, y);
+        final end = Offset.zero;
+        final curve = Curves.ease;
+        final tween =
+        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        return SwipeBackDetector(
+          child: SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          ),
+        );
+      },
     ),
   );
+}
 
 
 void navigateAndFinish(context, widget) =>
     Navigator.pushAndRemoveUntil(
-  context,
-  MaterialPageRoute(
-    builder: (context) => widget,
-    ),
-      (route) {
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => widget,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final begin = Offset(1.0, 0.0);
+            final end = Offset.zero;
+            final curve = Curves.ease;
+            final tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            return SwipeBackDetector(
+              child: SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              ),
+            );
+          },
+        ),      (route) {
         return false;
       }
     );

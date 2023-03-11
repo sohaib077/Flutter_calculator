@@ -15,3 +15,7 @@ class CalculatorAnswer extends CalculatorStates {}
 class CalculatorDelete extends CalculatorStates {}
 
 class CalculatorChangeBottomNav extends CalculatorStates {}
+
+class CalculatorSubmitState extends CalculatorStates {}
+
+class CalculatorChangePageIndexState extends CalculatorStates {}

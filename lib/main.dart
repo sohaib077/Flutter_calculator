@@ -7,11 +7,14 @@ import 'package:culculator/calculator_layout/calculator_layout.dart';
 import 'package:culculator/calculator_screen/calculator_screen.dart';
 import 'package:culculator/gpa_calculator/gpa_cubit/gpa_cubit.dart';
 import 'package:culculator/gpa_calculator/gpa_screen/gpa_screen.dart';
+import 'package:culculator/onboard_screen/onboard_screen.dart';
+import 'package:culculator/shared/bloc_observer.dart';
 import 'package:culculator/shared/components/constants.dart';
 import 'package:culculator/shared/network/remote/cashe_helper.dart';
 import 'package:culculator/shared/styles/colors.dart';
 import 'package:culculator/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
@@ -20,19 +23,42 @@ void main() async {
 
   await CasheHelper.init();
 
+  Object? onBoarding = CasheHelper.sharedPreferences!.get('onBoarding');
+  print (onBoarding);
+
+  if(onBoarding != true)
+     CasheHelper.putDate();
   points = json.decode(CasheHelper.getDate());
 
-  runApp( MyApp(points));
-  // runApp( MyApp( ));
+  // runApp( MyApp(points));
+
+  BlocOverrides.runZoned(
+        () {
+      // Use cubits...
+          runApp( MyApp( points , onBoarding));    },
+    blocObserver: MyBlocObserver(),
+  );
+
+
+  // runApp( MyApp( points , onBoarding));
 }
 
 class MyApp extends StatelessWidget {
   //
   final Map<String,dynamic> points ;
-  MyApp(this.points);
+
+   final  Object ? onBoarding ;
+  MyApp(this.points , this.onBoarding) ;
+
 
   @override
   Widget build(BuildContext context) {
+    // precacheImage(AssetImage('assets/images/bmi.png'), context).then((value){
+    //   print('done');
+    // }) ;
+    // precacheImage(AssetImage('assets/images/gpa.png'), context) ;
+    // precacheImage(AssetImage('assets/images/calculator.png'), context) ;
+    // precacheImage(AssetImage('assets/images/hat.png'), context) ;
     return MultiBlocProvider(
       providers: [
           BlocProvider(create: (context) => CalculatorCubit() ),
@@ -42,28 +68,36 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          scaffoldBackgroundColor: calculatorColor.withOpacity(0.6),
+        
+          scaffoldBackgroundColor: calculatorColor.withOpacity(0.4),
           appBarTheme: AppBarTheme(
             color: calculatorColor.withOpacity(0.0),
             titleTextStyle: (
             TextStyle(
-              color: Colors.white,
+              letterSpacing: 2,
+              color: Colors.white.withOpacity(0.88),
               fontSize: 20
             )
             ),
             elevation: 0,
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: defaultColor.withOpacity(0.78),
+              statusBarIconBrightness: Brightness.dark,
+            ),
           ),
           primaryColor: Colors.white,
           sliderTheme: SliderThemeData(
             overlayColor: Colors.white,
             activeTickMarkColor: Colors.white,
             thumbColor: Colors.white,
+            inactiveTickMarkColor: Colors.white,
           ),
           primarySwatch:  Colors.cyan,
+
         ),
         // darkTheme: calculatorLightTheme,
         // themeMode: ThemeMode.dark,
-        home: CalculatorLayout() ,
+        home: onBoarding != true ? OnBoardingScreen() : CalculatorLayout() ,
       ),
     );
   }

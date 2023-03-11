@@ -38,11 +38,11 @@ class SettingScreen extends StatelessWidget {
                  Expanded(
                    child: ListView.separated(
                      physics: BouncingScrollPhysics(),
-                     itemBuilder: (context, index) => index != 4 ?  buildSettingItem(index) :  Column(
+                     itemBuilder: (context, index) => index != 4 ?  buildSettingItem(index , context) :  Column(
                        children: [
                          Container(
-                           height: 40,
-                           width: 40,
+                           height: MediaQuery.of(context).size.height*0.063,
+                           width: MediaQuery.of(context).size.width*0.11,
                            decoration: BoxDecoration(
                              border: Border.all(
                                width: 1,
@@ -55,29 +55,31 @@ class SettingScreen extends StatelessWidget {
                              child: Text(
                                points.keys.last,
                                style: TextStyle(
-                                 fontSize: 18,
-                                 color: Colors.white,
+                                 // fontSize: 18,
+                                 fontSize: MediaQuery.of(context).size.height*0.03,
+                                 color: Colors.white.withOpacity(0.9),
                                ),
                              ),
                            ),
                          ),
                          Container(
-                           height: 40,
-                           width: 40,
+                           height: MediaQuery.of(context).size.height*0.063,
+                           width: MediaQuery.of(context).size.width*0.11,
                            child: TextFormField(
                              style: TextStyle(
-                               color: Colors.white,
+                               color: Colors.white.withOpacity(0.9),
+                               fontSize: MediaQuery.of(context).size.height*0.025,
                              ),
                              textAlign: TextAlign.center,
-                             controller: settingController[12],
+                             controller:  cubit.settingController[12],
                              keyboardType: TextInputType.number,
                              decoration: InputDecoration(
-                                 border: InputBorder.none,
-                                 hintText: 'points',
+                               border: InputBorder.none,
+                               hintText: '0.0',
 
-                                 hintStyle: TextStyle(
-                                   color: Colors.grey,
-                                 )
+                               hintStyle: TextStyle(
+                                 color: Colors.grey,
+                               ),
                              ),
                              onChanged: (_value){
                                points.update(points.keys.last, (value) => double.parse(_value))  ;
@@ -85,7 +87,7 @@ class SettingScreen extends StatelessWidget {
                            ),
                          ),
                          Container(
-                           width: 40,
+                           width: MediaQuery.of(context).size.width*0.1,
                            height: 1,
                            color: Colors.cyan.withOpacity(0.3),
                          ),
@@ -113,7 +115,7 @@ class SettingScreen extends StatelessWidget {
                          'Save',
                          style: TextStyle(
                            fontSize: 20,
-                           color: Colors.white,
+                           color: Colors.white.withOpacity(0.9),
                          ),
                        ),
                      ),
@@ -127,14 +129,19 @@ class SettingScreen extends StatelessWidget {
     );
   }
 
-  Widget buildSettingItem(index) => Row(
+  // var screenHeight = MediaQuery.of(context).size.height ;
+  // var screenWidht = MediaQuery.of(context).size.width ;
+
+  Widget buildSettingItem(index , context) => Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
       Column(
         children: [
           Container(
-            height: 40,
-            width: 40,
+            // height: 40,
+            // width: 40,
+            height: MediaQuery.of(context).size.height*0.063,
+            width: MediaQuery.of(context).size.width*0.11,
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1,
@@ -147,38 +154,43 @@ class SettingScreen extends StatelessWidget {
               child: Text(
                 points.keys.elementAt(index*3),
                 style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
+                  // fontSize: 18,
+                  fontSize: MediaQuery.of(context).size.height*0.03,
+                  color: Colors.white.withOpacity(0.9),
                 ),
               ),
             ),
           ),
           Container(
-            height: 40,
-            width: 40,
+            height: MediaQuery.of(context).size.height*0.063,
+            width: MediaQuery.of(context).size.width*0.11,
             child: TextFormField(
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.white.withOpacity(0.9),
+                fontSize: MediaQuery.of(context).size.height*0.025,
               ),
               textAlign: TextAlign.center,
-              controller: settingController[index*3],
+              controller:  GpaCubit.get(context).settingController[index*3],
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: 'points',
+                  hintText: '0.0',
 
                   hintStyle: TextStyle(
                     color: Colors.grey,
                   ),
               ),
                onChanged: (_value){
-                             points.update(points.keys.elementAt(index*3), (value) => double.parse(_value))  ;
-                            },
+                    if(_value == '')
+                      points.update(points.keys.elementAt(index*3), (value) => 0)  ;
+                    else
+                    points.update(points.keys.elementAt(index*3), (value) => double.parse(_value))  ;
+                },
 
             ),
           ),
           Container(
-            width: 40,
+            width: MediaQuery.of(context).size.width*0.1,
             height: 1,
             color: Colors.cyan.withOpacity(0.3),
           ),
@@ -187,8 +199,10 @@ class SettingScreen extends StatelessWidget {
       Column(
         children: [
           Container(
-            height: 40,
-            width: 40,
+            // height: 40,
+            // width: 40,
+            height: MediaQuery.of(context).size.height*0.063,
+            width: MediaQuery.of(context).size.width*0.11,
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1,
@@ -201,37 +215,42 @@ class SettingScreen extends StatelessWidget {
               child: Text(
                 points.keys.elementAt((index*3)+1),
                 style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
+                  // fontSize: 18,
+                  fontSize: MediaQuery.of(context).size.height*0.03,
+                  color: Colors.white.withOpacity(0.9),
                 ),
               ),
             ),
           ),
           Container(
-            height: 40,
-            width: 40,
+            height: MediaQuery.of(context).size.height*0.063,
+            width: MediaQuery.of(context).size.width*0.11,
             child: TextFormField(
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.white.withOpacity(0.9),
+                fontSize: MediaQuery.of(context).size.height*0.025,
               ),
               textAlign: TextAlign.center,
-              controller: settingController[index*3+1],
+              controller:  GpaCubit.get(context).settingController[index*3+1],
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: 'points',
+                  hintText: '0.0',
 
                   hintStyle: TextStyle(
                     color: Colors.grey,
                   )
               ),
                onChanged: (_value){
-                             points.update(points.keys.elementAt(index*3+1), (value) => double.parse(_value))  ;
-                            },
+                 if(_value == '')
+                   points.update(points.keys.elementAt(index*3), (value) => 0)  ;
+                 else
+                   points.update(points.keys.elementAt(index*3+1), (value) => double.parse(_value))  ;
+                  },
             ),
           ),
           Container(
-            width: 40,
+            width: MediaQuery.of(context).size.width*0.1,
             height: 1,
             color: Colors.cyan.withOpacity(0.3),
           ),
@@ -240,8 +259,10 @@ class SettingScreen extends StatelessWidget {
       Column(
         children: [
           Container(
-            height: 40,
-            width: 40,
+            // height: 40,
+            // width: 40,
+            height: MediaQuery.of(context).size.height*0.063,
+            width: MediaQuery.of(context).size.width*0.11,
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1,
@@ -254,37 +275,42 @@ class SettingScreen extends StatelessWidget {
               child: Text(
                 points.keys.elementAt((index*3)+2),
                 style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
+                  // fontSize: 18,
+                  fontSize: MediaQuery.of(context).size.height*0.03,
+                  color: Colors.white.withOpacity(0.9),
                 ),
               ),
             ),
           ),
           Container(
-            height: 40,
-            width: 40,
+            height: MediaQuery.of(context).size.height*0.063,
+            width: MediaQuery.of(context).size.width*0.11,
             child: TextFormField(
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.white.withOpacity(0.9),
+                fontSize: MediaQuery.of(context).size.height*0.025,
               ),
               textAlign: TextAlign.center,
-              controller: settingController[index*3+2],
+              controller: GpaCubit.get(context).settingController[index*3+2],
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: 'points',
+                  hintText: '0.0',
 
                   hintStyle: TextStyle(
                     color: Colors.grey,
                   )
               ),
                onChanged: (_value){
-                             points.update(points.keys.elementAt(index*3+2), (value) => double.parse(_value))  ;
-                            },
+                 if(_value == '')
+                   points.update(points.keys.elementAt(index*3), (value) => 0)  ;
+                 else
+                   points.update(points.keys.elementAt(index*3+2), (value) => double.parse(_value))  ;
+                  },
             ),
           ),
           Container(
-            width: 40,
+            width: MediaQuery.of(context).size.width*0.1,
             height: 1,
             color: Colors.cyan.withOpacity(0.3),
           ),

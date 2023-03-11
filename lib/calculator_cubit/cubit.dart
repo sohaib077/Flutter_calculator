@@ -9,12 +9,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bmi_calculator/bmi_screen/bmi_screen.dart';
+import '../calculator_layout/calculator_layout.dart';
+import '../shared/components/components.dart';
+import '../shared/network/remote/cashe_helper.dart';
 
 class CalculatorCubit extends Cubit<CalculatorStates>{
 
   CalculatorCubit() : super(CalculatorInitialState());
 
   static CalculatorCubit get(context) => BlocProvider.of(context) ;
+
+  String output = '0' ;
+  String num1 = '' ;
+  String num2 = '' ;
+  String operator = '' ;
+  bool isAnswered = false ;
+
 
   List <Widget> screens =[
     BmiScreen(),
@@ -32,7 +42,7 @@ class CalculatorCubit extends Cubit<CalculatorStates>{
 
   void typeNumbers(String number){
 
-    if(isAnswered == true)
+    if(isAnswered == true )
       clear();
 
     if(output == '0' && number != '.' )
@@ -43,22 +53,43 @@ class CalculatorCubit extends Cubit<CalculatorStates>{
       else
         output += number ;
 
+      // if(number == '-')
+      //   output += '-' ;
+
     emit(CalculatorTypeNumbers());
   }
 
   void operations(String _operator){
-    if(operator != '')
-      answer() ;
+    try {
+      if (operator != '')
+        answer();
+    }catch(e){
+      print("lllllllooooooooollllll $e");
+      operator = _operator;
+      emit(CalculatorOperations());
+      return;
+    }
+
     isAnswered = false ;
     num1 = output ;
     output = '' ;
     operator = _operator ;
     print(num1) ;
+
+    // if(operator != '' && _operator == '-')
+    //   typeNumbers('-') ;
+
+    // isAnswered = true ;
+    // num2 = ' ' + operator  ;
+
     emit(CalculatorOperations());
   }
 
   void clear(){
-    output = '0' ;
+    output = '0';
+    operator = '';
+    num1 = '';
+    num2 = '';
     isAnswered = false ;
     emit(CalculatorClear());
   }
@@ -88,6 +119,7 @@ class CalculatorCubit extends Cubit<CalculatorStates>{
   }
 
     void answer (){
+
 
       num2 = ' ' + operator +' '+ output ;
 
@@ -120,11 +152,36 @@ class CalculatorCubit extends Cubit<CalculatorStates>{
       if(output.endsWith('.0'))
            output = output.replaceAll('.0', '') ;
 
+      if(output == 'NaN')
+        output = 'Error' ;
 
       emit(CalculatorAnswer());
 
     }
 
+  bool isLast = false;
 
+  void submit(context){
+    CasheHelper.saveData(
+      key: 'onBoarding',
+      value: true,
+    ).then((value) {
+      if(value){
+        navigateAndFinish(context, CalculatorLayout());
+      }
+    });
+    emit(CalculatorSubmitState());
   }
+
+  void  pageChanged(index , length){
+    if(index == length)
+      isLast = true ;
+    else
+      isLast = false ;
+    emit(CalculatorChangePageIndexState());
+  }
+
+
+
+}
 

@@ -29,9 +29,17 @@ static dynamic getDate( )
 {
   String ? encodedMap =  sharedPreferences?.getString('cashePoints');
   print(encodedMap) ;
+  if(encodedMap == null )
+    putDate();
   return  encodedMap ;
-  // Map<String,dynamic> decodedMap = json.decode(encodedMap);
-  // print(decodedMap);
+}
+
+static Future<bool> saveData( {
+  required String key ,
+  required bool value,
+}) async
+{
+  return await sharedPreferences!.setBool(key, value);
 }
 
 
