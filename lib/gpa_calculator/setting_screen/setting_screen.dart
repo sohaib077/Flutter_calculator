@@ -31,97 +31,104 @@ class SettingScreen extends StatelessWidget {
                SizedBox(width: 15,),
              ],
            ),
-           body: Padding(
-             padding: const EdgeInsets.all(20.0),
-             child: Column(
-               children: [
-                 Expanded(
-                   child: ListView.separated(
-                     physics: BouncingScrollPhysics(),
-                     itemBuilder: (context, index) => index != 4 ?  buildSettingItem(index , context) :  Column(
-                       children: [
-                         Container(
-                           height: MediaQuery.of(context).size.height*0.063,
-                           width: MediaQuery.of(context).size.width*0.11,
-                           decoration: BoxDecoration(
-                             border: Border.all(
-                               width: 1,
-                               color: Colors.cyan,
+           body: GestureDetector(
+             onTap: (){
+               FocusNode currentFocus = FocusScope.of(context);
+               if(! currentFocus.hasPrimaryFocus)
+                    currentFocus.unfocus();
+             },
+             child: Padding(
+               padding: const EdgeInsets.all(20.0),
+               child: Column(
+                 children: [
+                   Expanded(
+                     child: ListView.separated(
+                       physics: BouncingScrollPhysics(),
+                       itemBuilder: (context, index) => index != 4 ?  buildSettingItem(index , context) :  Column(
+                         children: [
+                           Container(
+                             height: MediaQuery.of(context).size.height*0.063,
+                             width: MediaQuery.of(context).size.width*0.11,
+                             decoration: BoxDecoration(
+                               border: Border.all(
+                                 width: 1,
+                                 color: Colors.cyan,
+                               ),
+                               borderRadius: BorderRadius.circular(8),
+                               color: Colors.transparent,
                              ),
-                             borderRadius: BorderRadius.circular(8),
-                             color: Colors.transparent,
+                             child: Center(
+                               child: Text(
+                                 points.keys.last,
+                                 style: TextStyle(
+                                   // fontSize: 18,
+                                   fontSize: MediaQuery.of(context).size.height*0.03,
+                                   color: Colors.white.withOpacity(0.9),
+                                 ),
+                               ),
+                             ),
                            ),
-                           child: Center(
-                             child: Text(
-                               points.keys.last,
+                           Container(
+                             height: MediaQuery.of(context).size.height*0.063,
+                             width: MediaQuery.of(context).size.width*0.11,
+                             child: TextFormField(
                                style: TextStyle(
-                                 // fontSize: 18,
-                                 fontSize: MediaQuery.of(context).size.height*0.03,
                                  color: Colors.white.withOpacity(0.9),
+                                 fontSize: MediaQuery.of(context).size.height*0.025,
                                ),
-                             ),
-                           ),
-                         ),
-                         Container(
-                           height: MediaQuery.of(context).size.height*0.063,
-                           width: MediaQuery.of(context).size.width*0.11,
-                           child: TextFormField(
-                             style: TextStyle(
-                               color: Colors.white.withOpacity(0.9),
-                               fontSize: MediaQuery.of(context).size.height*0.025,
-                             ),
-                             textAlign: TextAlign.center,
-                             controller:  cubit.settingController[12],
-                             keyboardType: TextInputType.number,
-                             decoration: InputDecoration(
-                               border: InputBorder.none,
-                               hintText: '0.0',
+                               textAlign: TextAlign.center,
+                               controller:  cubit.settingController[12],
+                               keyboardType: TextInputType.number,
+                               decoration: InputDecoration(
+                                 border: InputBorder.none,
+                                 hintText: '0.0',
 
-                               hintStyle: TextStyle(
-                                 color: Colors.grey,
+                                 hintStyle: TextStyle(
+                                   color: Colors.grey,
+                                 ),
                                ),
+                               onChanged: (_value){
+                                 points.update(points.keys.last, (value) => double.parse(_value))  ;
+                               },
                              ),
-                             onChanged: (_value){
-                               points.update(points.keys.last, (value) => double.parse(_value))  ;
-                             },
                            ),
-                         ),
-                         Container(
-                           width: MediaQuery.of(context).size.width*0.1,
-                           height: 1,
-                           color: Colors.cyan.withOpacity(0.3),
-                         ),
-                       ],
+                           Container(
+                             width: MediaQuery.of(context).size.width*0.1,
+                             height: 1,
+                             color: Colors.cyan.withOpacity(0.3),
+                           ),
+                         ],
+                       ),
+                       separatorBuilder: (context, index) => index != 4 ? SizedBox(height: 25,) : SizedBox(height: 0,),
+                       itemCount: 5,
                      ),
-                     separatorBuilder: (context, index) => index != 4 ? SizedBox(height: 25,) : SizedBox(height: 0,),
-                     itemCount: 5,
                    ),
-                 ),
-                 Padding(
-                   padding:  EdgeInsetsDirectional.only(
-                     start: MediaQuery.of(context).size.width*0.65 ,
-                     bottom: MediaQuery.of(context).size.height*0.01 ,
-                   ),
-                   child: InkWell(
-                     onTap: (){
-                       CasheHelper.putDate();
-                       Navigator.pop(context) ;
-                     },
-                     customBorder: CircleBorder(),
-                     child: CircleAvatar(
-                       radius: 33,
-                       backgroundColor: Colors.cyan.withOpacity(0.8),
-                       child: Text(
-                         'Save',
-                         style: TextStyle(
-                           fontSize: 20,
-                           color: Colors.white.withOpacity(0.9),
+                   Padding(
+                     padding:  EdgeInsetsDirectional.only(
+                       start: MediaQuery.of(context).size.width*0.65 ,
+                       bottom: MediaQuery.of(context).size.height*0.01 ,
+                     ),
+                     child: InkWell(
+                       onTap: (){
+                         CasheHelper.putDate();
+                         Navigator.pop(context) ;
+                       },
+                       customBorder: CircleBorder(),
+                       child: CircleAvatar(
+                         radius: 33,
+                         backgroundColor: Colors.cyan.withOpacity(0.8),
+                         child: Text(
+                           'Save',
+                           style: TextStyle(
+                             fontSize: 20,
+                             color: Colors.white.withOpacity(0.9),
+                           ),
                          ),
                        ),
                      ),
                    ),
-                 ),
-               ],
+                 ],
+               ),
              ),
            ),
          ) ;
@@ -171,7 +178,7 @@ class SettingScreen extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
               controller:  GpaCubit.get(context).settingController[index*3],
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(decimal: true,signed: true),
               decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: '0.0',

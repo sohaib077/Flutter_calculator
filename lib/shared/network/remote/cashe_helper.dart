@@ -16,19 +16,14 @@ static init() async
  {
 
    String encodedMap = json.encode(points);
-   print(encodedMap);
 
    return await sharedPreferences!.setString('cashePoints', encodedMap);
     }
 
 
-  // String? encodedMap =  CasheHelper.sharedPreferences?.getString('points');
-  // Map<String,dynamic> decodedMap = json.decode(encodedMap!);
-
 static dynamic getDate( )
 {
   String ? encodedMap =  sharedPreferences?.getString('cashePoints');
-  print(encodedMap) ;
   if(encodedMap == null )
     putDate();
   return  encodedMap ;

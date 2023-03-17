@@ -135,15 +135,18 @@ class ResultScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w300,
                                       ),
                                     ),
-                                    Flexible(
-                                      // fit: FlexFit.loose,
-                                      child: Text(
-                                        '${cubit.resultStatus}',
-                                        style: TextStyle(
-                                            // fontSize:30,
-                                            fontSize:screenWidht*0.08,
-                                            color: cubit.resultColor,
-                                            fontWeight: FontWeight.bold
+                                    SizedBox(
+                                      width: screenWidht*0.35,
+                                      child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          '${cubit.resultStatus}',
+                                          style: TextStyle(
+                                              // fontSize:30,
+                                              fontSize:screenWidht*0.08,
+                                              color: cubit.resultColor,
+                                              fontWeight: FontWeight.bold
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -250,13 +253,6 @@ class ResultScreen extends StatelessWidget {
                                           color: defaultColor ,
                                         ),
                                       ),
-                                      // Text(
-                                      //   ' kg' ,
-                                      //   style: TextStyle(
-                                      //     color: Colors.white,
-                                      //     fontSize: 18,
-                                      //   ),
-                                      // ),
                                     ],
                                   ),
                                 ) ,

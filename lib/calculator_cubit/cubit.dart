@@ -1,13 +1,9 @@
-import 'dart:ffi';
 
-import 'package:bloc/bloc.dart';
 import 'package:culculator/calculator_cubit/states.dart';
 import 'package:culculator/calculator_screen/calculator_screen.dart';
 import 'package:culculator/gpa_calculator/gpa_screen/gpa_screen.dart';
-import 'package:culculator/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../bmi_calculator/bmi_screen/bmi_screen.dart';
 import '../calculator_layout/calculator_layout.dart';
 import '../shared/components/components.dart';
@@ -19,13 +15,9 @@ class CalculatorCubit extends Cubit<CalculatorStates> {
   static CalculatorCubit get(context) => BlocProvider.of(context);
 
   String output = '0';
-
   String num1 = '';
-
   String num2 = '';
-
   String operator = '';
-
   bool isAnswered = false;
 
   List<Widget> screens = [
@@ -44,7 +36,6 @@ class CalculatorCubit extends Cubit<CalculatorStates> {
   void typeNumbers(String number) {
     checker = true;
 
-    print('num2 = $num2');
     if (isAnswered == true) clear();
 
     if (output == '0' && number != '.') output = '';
@@ -53,9 +44,6 @@ class CalculatorCubit extends Cubit<CalculatorStates> {
       output = output;
     else
       output += number;
-
-    // if(number == '-')
-    //   output += '-' ;
 
     emit(CalculatorTypeNumbers());
   }
@@ -66,7 +54,6 @@ class CalculatorCubit extends Cubit<CalculatorStates> {
     try {
       if (operator != '') answer();
     } catch (e) {
-      print("lllllllooooooooollllll $e");
       operator = _operator;
       emit(CalculatorOperations());
       return;
@@ -76,13 +63,6 @@ class CalculatorCubit extends Cubit<CalculatorStates> {
     num1 = output;
     output = '';
     operator = _operator;
-    print(num1);
-
-    // if(operator != '' && _operator == '-')
-    //   typeNumbers('-') ;
-
-    // isAnswered = true ;
-    // num2 = ' ' + operator  ;
 
     emit(CalculatorOperations());
   }

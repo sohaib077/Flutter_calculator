@@ -118,11 +118,7 @@ class GpaCubit extends Cubit <GpaStates>{
       isCalculated = false ;
       return await isCalculated ;
     }
-    // emit(GpaFillResultState());
     return await isCalculated ;
-    // if(isCalculated)
-    //   navigateTo(context, GpaResultScreen()) ;
-    // emit(GpaFillResultState());
   }
 
   void result(){
@@ -131,7 +127,6 @@ class GpaCubit extends Cubit <GpaStates>{
     totalPoints = 0 ;
 
     for(int i = 0 ; i < gradeResults.length ; i++){
-      print(i) ;
       switch(gradeResults[i]){
 
         case ' A+' :

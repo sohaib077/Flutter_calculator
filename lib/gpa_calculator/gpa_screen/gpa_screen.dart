@@ -20,12 +20,6 @@ class GpaScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        // title: Text(
-        //   'GPA',
-        //   style: TextStyle(
-        //     color: Colors.white.withOpacity(0.88),
-        //   ),
-        // ),
         actions: [
           IconButton(
             onPressed: () {
@@ -61,8 +55,6 @@ class GpaScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        // height: 40,
-                        // width: 100,
                         height: screenHeight * 0.06,
                         width: screenWidht * 0.25,
                         decoration: BoxDecoration(
@@ -88,12 +80,9 @@ class GpaScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Container(
-                          // height: 40,
-                          // width: 100,
                           height: screenHeight * 0.06,
                           width: screenWidht * 0.25,
                           decoration: BoxDecoration(
-                            // color: Colors.cyan ,
                             border: Border.all(
                               width: 2,
                               color: Colors.cyan,
@@ -114,8 +103,6 @@ class GpaScreen extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        // height: 40,
-                        // width: 100,
                         height: screenHeight * 0.06,
                         width: screenWidht * 0.25,
                         decoration: BoxDecoration(
@@ -238,10 +225,6 @@ class GpaScreen extends StatelessWidget {
                       if (value) navigateTo(context, GpaResultScreen());
                       cubit.result();
                     });
-                    // cubit.fillResult(context);
-                    // cubit.result();
-                    // print(gradeResults);
-                    // print(creditResults);
                   },
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20),
@@ -316,7 +299,6 @@ class GpaScreen extends StatelessWidget {
                     title: 'Pick your grade',
                     headerTextColor: Colors.white.withOpacity(0.88),
                     backgroundColor: calculatorColor,
-                    // backgroundColor:  Colors.teal,
                     headerColor: Colors.cyan.withOpacity(0.7),
                     buttonTextColor: Colors.white.withOpacity(0.88),
                     showDivider: false,
