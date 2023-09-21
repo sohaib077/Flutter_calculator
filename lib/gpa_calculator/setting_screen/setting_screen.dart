@@ -31,19 +31,45 @@ class SettingScreen extends StatelessWidget {
                SizedBox(width: 15,),
              ],
            ),
+           floatingActionButton: Padding(
+                     padding:  EdgeInsetsDirectional.only(
+                       start: MediaQuery.of(context).size.width*0.65 ,
+                       bottom: MediaQuery.of(context).size.height*0 ,
+                     ),
+                     child: InkWell(
+                       onTap: (){
+                         CasheHelper.putDate();
+                         Navigator.pop(context) ;
+                       },
+                       customBorder: CircleBorder(),
+                       child: CircleAvatar(
+                         radius: 33,
+                         backgroundColor: Colors.cyan.withOpacity(0.8),
+                         child: Text(
+                           'Save',
+                           style: TextStyle(
+                             fontSize: 20,
+                             color: Colors.white.withOpacity(0.9),
+                           ),
+                         ),
+                       ),
+                     ),
+                   ),
            body: GestureDetector(
              onTap: (){
                FocusNode currentFocus = FocusScope.of(context);
                if(! currentFocus.hasPrimaryFocus)
                     currentFocus.unfocus();
              },
-             child: Padding(
-               padding: const EdgeInsets.all(20.0),
-               child: Column(
-                 children: [
-                   Expanded(
-                     child: ListView.separated(
-                       physics: BouncingScrollPhysics(),
+             child: SingleChildScrollView(
+               physics: const BouncingScrollPhysics(),
+               child: Padding(
+                 padding: const EdgeInsets.all(20.0),
+                 child: Column(
+                   children: [
+                     ListView.separated(
+                       physics: NeverScrollableScrollPhysics(),
+                       shrinkWrap: true,
                        itemBuilder: (context, index) => index != 4 ?  buildSettingItem(index , context) :  Column(
                          children: [
                            Container(
@@ -102,32 +128,8 @@ class SettingScreen extends StatelessWidget {
                        separatorBuilder: (context, index) => index != 4 ? SizedBox(height: 25,) : SizedBox(height: 0,),
                        itemCount: 5,
                      ),
-                   ),
-                   Padding(
-                     padding:  EdgeInsetsDirectional.only(
-                       start: MediaQuery.of(context).size.width*0.65 ,
-                       bottom: MediaQuery.of(context).size.height*0.01 ,
-                     ),
-                     child: InkWell(
-                       onTap: (){
-                         CasheHelper.putDate();
-                         Navigator.pop(context) ;
-                       },
-                       customBorder: CircleBorder(),
-                       child: CircleAvatar(
-                         radius: 33,
-                         backgroundColor: Colors.cyan.withOpacity(0.8),
-                         child: Text(
-                           'Save',
-                           style: TextStyle(
-                             fontSize: 20,
-                             color: Colors.white.withOpacity(0.9),
-                           ),
-                         ),
-                       ),
-                     ),
-                   ),
-                 ],
+                   ],
+                 ),
                ),
              ),
            ),

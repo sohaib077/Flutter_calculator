@@ -37,7 +37,7 @@ class GpaResultScreen extends StatelessWidget {
                       'assets/images/hat.png',
                     ),
                     fit: BoxFit.cover,
-                    height: MediaQuery.of(context).size.height*0.2,
+                    height: MediaQuery.of(context).size.height*0.18,
                     width: MediaQuery.of(context).size.width*0.5,
                   ) ,
 
@@ -71,7 +71,7 @@ class GpaResultScreen extends StatelessWidget {
                       itemCount: cubit.gradeResults.length,
                   ),
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: 20),
                 Expanded(
                   flex: 3,
                   child: Padding(
@@ -95,7 +95,7 @@ class GpaResultScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(height: 10,),
+                              SizedBox(height: 5,),
                               Text(
                                   cubit.gpaResult.toString().endsWith('.0') ?
                                    '${cubit.gpaResult.round().toString()}' :
